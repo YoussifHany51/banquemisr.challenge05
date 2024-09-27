@@ -11,12 +11,24 @@
         <!--popular-->
         <scene sceneID="a2D-qi-kEO">
             <objects>
-                <viewController id="fOb-2b-PXL" sceneMemberID="viewController">
+                <viewController id="fOb-2b-PXL" customClass="PopularViewController" customModule="banquemisr_challenge05" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oT5-qr-Qoe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Cc3-NZ-Ons">
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="tqY-tk-Gc8"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tqY-tk-Gc8" firstAttribute="trailing" secondItem="Cc3-NZ-Ons" secondAttribute="trailing" id="9mA-7W-A6a"/>
+                            <constraint firstItem="Cc3-NZ-Ons" firstAttribute="leading" secondItem="tqY-tk-Gc8" secondAttribute="leading" id="O3y-sD-NQj"/>
+                            <constraint firstItem="tqY-tk-Gc8" firstAttribute="bottom" secondItem="Cc3-NZ-Ons" secondAttribute="bottom" id="PEF-zw-7mv"/>
+                            <constraint firstItem="Cc3-NZ-Ons" firstAttribute="top" secondItem="tqY-tk-Gc8" secondAttribute="top" id="nib-R8-QCn"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="popular" image="globe" catalog="system" id="7Ae-sC-cHu"/>
                 </viewController>
@@ -27,12 +39,24 @@
         <!--upcoming-->
         <scene sceneID="d2L-Jf-ffp">
             <objects>
-                <viewController id="kMd-Ba-dZg" sceneMemberID="viewController">
+                <viewController id="kMd-Ba-dZg" customClass="UpcomingViewController" customModule="banquemisr_challenge05" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XS6-d8-YNJ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="brx-yu-dZd">
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="3Dh-Gx-GVj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="brx-yu-dZd" firstAttribute="leading" secondItem="3Dh-Gx-GVj" secondAttribute="leading" id="68w-Nv-0jW"/>
+                            <constraint firstItem="3Dh-Gx-GVj" firstAttribute="trailing" secondItem="brx-yu-dZd" secondAttribute="trailing" id="PJk-Lg-gaH"/>
+                            <constraint firstItem="3Dh-Gx-GVj" firstAttribute="bottom" secondItem="brx-yu-dZd" secondAttribute="bottom" id="Zu0-kA-Fbc"/>
+                            <constraint firstItem="brx-yu-dZd" firstAttribute="top" secondItem="3Dh-Gx-GVj" secondAttribute="top" id="yTC-Q3-J0d"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="upcoming" image="square.and.arrow.down.fill" catalog="system" id="C26-j8-Mpi"/>
                 </viewController>
@@ -43,14 +67,29 @@
         <!--playing-->
         <scene sceneID="YFe-N1-aHr">
             <objects>
-                <viewController id="u2L-hP-SSz" sceneMemberID="viewController">
+                <viewController id="u2L-hP-SSz" customClass="NowPlayingViewController" customModule="banquemisr_challenge05" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7AV-6m-d5G">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="23d-fA-Y6k">
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="a4Q-b7-xCn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="a4Q-b7-xCn" firstAttribute="trailing" secondItem="23d-fA-Y6k" secondAttribute="trailing" id="JMX-d9-sKB"/>
+                            <constraint firstItem="a4Q-b7-xCn" firstAttribute="bottom" secondItem="23d-fA-Y6k" secondAttribute="bottom" id="bhp-Qt-QF9"/>
+                            <constraint firstItem="23d-fA-Y6k" firstAttribute="leading" secondItem="a4Q-b7-xCn" secondAttribute="leading" id="jfm-SA-NJ9"/>
+                            <constraint firstItem="23d-fA-Y6k" firstAttribute="top" secondItem="a4Q-b7-xCn" secondAttribute="top" id="lmJ-Tr-BPd"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="playing" image="play.fill" catalog="system" id="UZu-8A-bFE"/>
+                    <connections>
+                        <outlet property="nowPlayingTableView" destination="23d-fA-Y6k" id="oFI-3L-3lW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7bT-l5-887" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
