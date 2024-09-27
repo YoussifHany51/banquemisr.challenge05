@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NowPlayingTableViewCell: UITableViewCell {
+class MoviesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var imageLabel: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
