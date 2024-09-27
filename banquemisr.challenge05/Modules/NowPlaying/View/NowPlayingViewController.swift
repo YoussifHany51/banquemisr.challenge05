@@ -11,7 +11,7 @@ class NowPlayingViewController: UIViewController {
 
     @IBOutlet weak var nowPlayingTableView: UITableView!
     let viewModel = MoviesViewModel()
-    
+    var movieType = NetworkManager.MovieType.nowPlaying
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpData()
