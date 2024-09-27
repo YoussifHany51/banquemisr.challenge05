@@ -10,7 +10,7 @@ import UIKit
 class NowPlayingViewController: UIViewController {
 
     @IBOutlet weak var nowPlayingTableView: UITableView!
-    let viewModel = NowPlayingViewModel()
+    let viewModel = MoviesViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +32,8 @@ class NowPlayingViewController: UIViewController {
         }
     }
     private func setupCell(){
-        let nowPlayingCellNib = UINib(nibName: "NowPlayingTableViewCell", bundle: nil)
-        nowPlayingTableView.register(nowPlayingCellNib, forCellReuseIdentifier: "nowPlayingCell")
+        let nowPlayingCellNib = UINib(nibName: "MoviesTableViewCell", bundle: nil)
+        nowPlayingTableView.register(nowPlayingCellNib, forCellReuseIdentifier: "moviesCell")
     }
     
     private func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
@@ -57,7 +57,7 @@ extension NowPlayingViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nowPlayingCell", for: indexPath) as! NowPlayingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as! MoviesTableViewCell
         cell.titleLabel.text = viewModel.movies[indexPath.row].title
         cell.releaseDateLabel.text = "Release Date : \(viewModel.movies[indexPath.row].release_date)"
         

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NowPlayingViewModel{
+class MoviesViewModel{
     var movies :[Movie] = []
     
     func fetchData(movieType : NetworkManager.MovieType,completion : @escaping () -> ()){
