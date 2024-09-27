@@ -31,6 +31,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="popular" image="globe" catalog="system" id="7Ae-sC-cHu"/>
+                    <connections>
+                        <outlet property="popularTableView" destination="Cc3-NZ-Ons" id="DRZ-rs-JLZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Khb-hj-zKL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -59,6 +62,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="upcoming" image="square.and.arrow.down.fill" catalog="system" id="C26-j8-Mpi"/>
+                    <connections>
+                        <outlet property="upcomingTableView" destination="brx-yu-dZd" id="cg1-cM-2Zq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tYC-kD-oJs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
