@@ -74,7 +74,11 @@ extension PopularViewController:UITableViewDelegate,UITableViewDataSource{
         return 150
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let movie = viewModel.movies[indexPath.row]
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailsViewController") as! MovieDetailsViewController
+        vc.movie = movie
+        vc.viewModel = MovieDetailViewModel()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

@@ -14,5 +14,9 @@ struct Movie : Codable{
     let release_date : String
     let poster_path : String
     let genre_ids : [Int]
-    
+    let original_language : String
+    let vote_average : Double
+    let original_title : String
+    let adult : Bool
+    let vote_count : Int
 }
