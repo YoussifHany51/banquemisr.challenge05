@@ -12,21 +12,27 @@ class MoviesListViewController: UIViewController {
     @IBOutlet weak var moviesTableView: UITableView!
     let viewModel = MoviesViewModel()
     var movieType : NetworkManager.MovieType!
+    var refresh = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpData()
-        
+        refresh.tintColor = .gray
+        refresh.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        moviesTableView.addSubview(refresh)
     }
     private func setUpData(){
         moviesTableView.dataSource = self
         moviesTableView.delegate = self
-        navigationItem.title = setUpNavigationTitle(movieTypeRawValue: movieType.rawValue)
+        navigationItem.title = viewModel.setUpNavigationTitle(movieTypeRawValue: movieType.rawValue)
         setupCell()
         loadData()
     }
-    private func loadData(){
+    @objc private func loadData(){
+        moviesTableView.isHidden = true
         viewModel.fetchData(movieType: movieType){ [weak self] in
             DispatchQueue.main.async {
+                self?.moviesTableView.isHidden = false
+                self?.refresh.endRefreshing()
                 self?.moviesTableView.reloadData()
             }
         }
@@ -35,38 +41,42 @@ class MoviesListViewController: UIViewController {
         let moviesCellNib = UINib(nibName: "MoviesTableViewCell", bundle: nil)
         moviesTableView.register(moviesCellNib, forCellReuseIdentifier: "moviesCell")
     }
-    private func setUpNavigationTitle(movieTypeRawValue:String) -> String{
-        switch movieTypeRawValue {
-        case "now_playing":
-            return "Now Playing"
-        case "popular":
-            return "Popular"
-        default:
-            return "Upcoming"
-        }
-    }
-    private func updateImageView(with url: URL, imageView: UIImageView) {
-        viewModel.loadImageData(from: url) { data in
-            if let data = data, let image = UIImage(data: data) {
-                imageView.image = image
+    
+    private func updateImageView(with url: URL, for indexPath: IndexPath) {
+            viewModel.loadImageData(from: url) { [weak self] data in
+                DispatchQueue.main.async {
+                    // Ensure the cell is still visible and hasn't been reused
+                    if let visibleCell = self?.moviesTableView.cellForRow(at: indexPath) as? MoviesTableViewCell,
+                       let data = data, let image = UIImage(data: data) {
+                        visibleCell.imageLabel.image = image
+                    }
+                }
             }
         }
-    }
+
 }
 
 extension MoviesListViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.movies.count
+        return viewModel.movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "moviesCell", for: indexPath) as! MoviesTableViewCell
+        let movie = viewModel.movies[indexPath.row]
         cell.titleLabel.text = viewModel.movies[indexPath.row].title
         cell.releaseDateLabel.text = "Release Date : \(viewModel.movies[indexPath.row].release_date)"
         
-        let posterPath = viewModel.movies[indexPath.row].poster_path
-        let imageUrl = "https://image.tmdb.org/t/p/w500\(posterPath)"
-        updateImageView(with:  URL(string: imageUrl)!, imageView: cell.imageLabel)
+        cell.imageLabel.image = UIImage(named: "placeholder")
+        
+        if let cachedMovieEntity = CoreDataManager.shared.fetchCachedMovie(by: movie.id),
+           let imageData = cachedMovieEntity.posterImage {
+            cell.imageLabel.image = UIImage(data: imageData)
+        } else {
+            if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500\(movie.poster_path)") {
+                updateImageView(with: imageUrl, for: indexPath)
+            }
+        }
         return cell
     }
     
