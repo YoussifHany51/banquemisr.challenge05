@@ -30,7 +30,7 @@ class MoviesViewModel{
         }
     }
     
-    private func fetchMoviesFromCoreData() {
+     func fetchMoviesFromCoreData() {
         let cachedMovies = CoreDataManager.shared.fetchCachedMovies()
         if cachedMovies.isEmpty {
             print("No cached movies available.")
