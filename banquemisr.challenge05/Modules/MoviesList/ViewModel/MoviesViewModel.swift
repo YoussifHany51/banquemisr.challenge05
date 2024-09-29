@@ -21,4 +21,17 @@ class MoviesViewModel{
             }
         }
     }
+    func loadImageData(from url: URL, completion: @escaping (Data?) -> Void) {
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        completion(data)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                }
+            }
+        }
 }
