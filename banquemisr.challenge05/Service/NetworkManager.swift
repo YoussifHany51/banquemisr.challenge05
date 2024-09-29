@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkManager{
+class NetworkManager{
     
     static let shared = NetworkManager()
     private let apiUrl = "https://api.themoviedb.org/3/movie"
