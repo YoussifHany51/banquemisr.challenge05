@@ -13,6 +13,12 @@ struct NetworkManager{
     private let apiUrl = "https://api.themoviedb.org/3/movie"
     private let apiKey = "a8f38baa9f38daae2d931d8437984279"
     
+    private var session: URLSession
+        
+        init(session: URLSession = .shared) {
+            self.session = session
+        }
+    
     enum MovieType : String {
         case nowPlaying = "now_playing"
         case popular = "popular"
@@ -23,7 +29,7 @@ struct NetworkManager{
         let urlString = "\(apiUrl)/\(movieType.rawValue)?api_key=\(apiKey)"
         guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        session.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
