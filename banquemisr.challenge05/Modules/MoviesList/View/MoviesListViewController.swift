@@ -1,56 +1,60 @@
 //
-//  PopularViewController.swift
+//  MoviesListViewController.swift
 //  banquemisr.challenge05
 //
-//  Created by Youssif Hany on 26/09/2024.
+//  Created by Youssif Hany on 29/09/2024.
 //
 
 import UIKit
 
-class PopularViewController: UIViewController {
-
-    @IBOutlet weak var popularTableView: UITableView!
+class MoviesListViewController: UIViewController {
     
+    @IBOutlet weak var moviesTableView: UITableView!
     let viewModel = MoviesViewModel()
-    
+    var movieType : NetworkManager.MovieType!
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpData()
+        
     }
     private func setUpData(){
-        popularTableView.dataSource = self
-        popularTableView.delegate = self
-        navigationItem.title = "Popular"
+        moviesTableView.dataSource = self
+        moviesTableView.delegate = self
+        navigationItem.title = setUpNavigationTitle(movieTypeRawValue: movieType.rawValue)
         setupCell()
         loadData()
     }
     private func loadData(){
-        viewModel.fetchData(movieType: .popular){ [weak self] in
+        viewModel.fetchData(movieType: movieType){ [weak self] in
             DispatchQueue.main.async {
-                self?.popularTableView.reloadData()
+                self?.moviesTableView.reloadData()
             }
         }
     }
     private func setupCell(){
-        let nowPlayingCellNib = UINib(nibName: "MoviesTableViewCell", bundle: nil)
-        popularTableView.register(nowPlayingCellNib, forCellReuseIdentifier: "moviesCell")
+        let moviesCellNib = UINib(nibName: "MoviesTableViewCell", bundle: nil)
+        moviesTableView.register(moviesCellNib, forCellReuseIdentifier: "moviesCell")
     }
-    
-    private func loadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        DispatchQueue.global().async {
-            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    completion(image)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
+    private func setUpNavigationTitle(movieTypeRawValue:String) -> String{
+        switch movieTypeRawValue {
+        case "now_playing":
+            return "Now Playing"
+        case "popular":
+            return "Popular"
+        default:
+            return "Upcoming"
+        }
+    }
+    private func updateImageView(with url: URL, imageView: UIImageView) {
+        viewModel.loadImageData(from: url) { data in
+            if let data = data, let image = UIImage(data: data) {
+                imageView.image = image
             }
         }
     }
 }
-extension PopularViewController:UITableViewDelegate,UITableViewDataSource{
+
+extension MoviesListViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.movies.count
     }
@@ -62,11 +66,7 @@ extension PopularViewController:UITableViewDelegate,UITableViewDataSource{
         
         let posterPath = viewModel.movies[indexPath.row].poster_path
         let imageUrl = "https://image.tmdb.org/t/p/w500\(posterPath)"
-        loadImage(from: URL(string: imageUrl)!) { image in
-            if let image = image {
-                cell.imageLabel?.image = image
-            }
-        }
+        updateImageView(with:  URL(string: imageUrl)!, imageView: cell.imageLabel)
         return cell
     }
     
@@ -80,5 +80,4 @@ extension PopularViewController:UITableViewDelegate,UITableViewDataSource{
         vc.viewModel = MovieDetailViewModel()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
